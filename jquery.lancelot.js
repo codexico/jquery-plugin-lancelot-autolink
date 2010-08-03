@@ -1,36 +1,69 @@
 (function($){
- $.fn.lancelot = function() {
+$.fn.lancelot = function(options) {
 
+	var defaults = {
+		hoverTime: 3000,
+		class: "lancelotGo",
+		atext: "go",
+		show: "true",
+		display: "inline",
+		speed: "fast",
+		linkAction: "location"
+	}
+	var options = $.extend(defaults, options);
+
+	//the plugin
     return this.each(function() {
-
-		var ahref = $(this).attr("href");
-		//var ahref = this
-
+		obj = $(this);
+		var ahref = obj.attr("href");
 		var t = '';
 
-		var lanc = function() {
-			//alert('mouseover location')
-			window.location = ahref;
-			//alert('mouseover open _blank')
-			//window.open(this, '_blank');
-			//alert('mouseover open')
-			//window.open(this);
+		var launch = function() {
+			switch(options.linkAction){
+				case "open":
+					window.open(this);
+					break;
+				case "_blank":
+					window.open(this, '_blank');
+					break;
+				default:
+					window.location = ahref;
+			}
 		}
 
-		$(this).hover(
+		//create link
+		obj.append(' <a href="'+ahref+'" class="'+options.class+'">'+options.atext+'</a>')
+		var goLink = $("."+options.class, obj)
+		goLink.css("display", options.display)
+
+		//show animation
+		if(options.show != "true"){
+			goLink.hide()
+			obj.hover(
+				function(){
+					goLink.fadeIn(options.speed)
+				},
+				function(){
+					goLink.fadeOut(options.speed)
+				}
+			);
+		}
+
+		//prepare to launch
+		goLink.hover(
 			function(){
 				if(t) {
 					clearTimeout(t);
 				}
-				//alert('hover')
-				t = setTimeout(lanc, 4000);
+				t = setTimeout(launch, options.hoverTime);
 			},
 			function(){
 				if(t) {
 					clearTimeout(t);
 				}
-				//alert('calback')
-			});
-		});
- };
+			}
+		)//goLink.hover
+
+	})//each
+};
 })(jQuery);
