@@ -2,35 +2,33 @@
 $.fn.lancelot = function(options) {
 
 	var defaults = {
-		hoverTime: 2000,
-		aclass: "lancelotGo",
-		atext: "go",
-		show: "true",
-		display: "inline",
-		speed: "fast",
-		linkAction: "location",
-		atitle: "go in 2s"
+		hoverTime: 2000,		//time to launch the link
+		aclass: "lancelotGo",	//style, see lancelot.css
+		atext: "",			//text to show
+		show: "false",			//
+		display: "inline",		//inline, block ...
+		speed: "fast",			//animation
+		linkAction: "location",	//open, _blank
+		atitle: "go in 2s",		//link title
+		alink: false			//url OR function
 	}
 	var options = $.extend(defaults, options);
 
 	//the plugin
     return this.each(function() {
 		obj = $(this);
-		var ahref = obj.attr("href");
 		var t = '';
+		var str = obj.text();
 
-		var launch = function() {
-			switch(options.linkAction){
-				case "open":
-					window.open(this);
-					break;
-				case "_blank":
-					window.open(this, '_blank');
-					break;
-				default:
-					window.location = ahref;
-			}
-		};
+		//where we go?
+		var ahref = "";
+		if(options.alink != false){
+			$.isFunction(options.alink) ?
+				ahref = options.alink.call()
+            : ahref = options.alink;
+		}else{
+			ahref = obj.attr("href");
+		}
 
 		//create link
 		obj.append(' <a href="'+ahref+'" class="'+options.aclass+'" title="'+options.atitle+'">'+options.atext+'</a>');
@@ -47,7 +45,7 @@ $.fn.lancelot = function(options) {
 					goLink.fadeOut(options.speed)
 				}
 			);
-		};
+		}
 
 		//prepare to launch
 		goLink.hover(
@@ -61,6 +59,20 @@ $.fn.lancelot = function(options) {
 				clearTimeout(t);
 			}
 		);//goLink.hover
+
+		var launch = function() {
+			switch(options.linkAction){
+				case "open":
+					window.open(this);
+					break;
+				case "_blank":
+					window.open(this, '_blank');
+					break;
+				default:
+					window.location = ahref;
+			}
+		};
+
 	});//each
 };
 })(jQuery);
