@@ -30,7 +30,8 @@ You can pass a function to "alink", example:
 
 	var googleSearch = function(){
 		//obj is a reference to each $('.lancelot')
-		return "http://www.google.com/search?q="+obj.text()
+		var search = obj.text().replace(/^#/,'');
+		return "http://www.google.com/search?q="+search
 	};
 
 	$('.lancelot').lancelot({
