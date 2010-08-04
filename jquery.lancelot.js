@@ -8,7 +8,8 @@ $.fn.lancelot = function(options) {
 		show: "true",
 		display: "inline",
 		speed: "fast",
-		linkAction: "location"
+		linkAction: "location",
+		atitle: "go in 2s"
 	}
 	var options = $.extend(defaults, options);
 
@@ -32,7 +33,7 @@ $.fn.lancelot = function(options) {
 		};
 
 		//create link
-		obj.append(' <a href="'+ahref+'" class="'+options.class+'">'+options.atext+'</a>');
+		obj.append(' <a href="'+ahref+'" class="'+options.class+'" title="'+options.atitle+'">'+options.atext+'</a>');
 		var goLink = obj.find("."+options.class).css("display", options.display);
 
 		//show animation
