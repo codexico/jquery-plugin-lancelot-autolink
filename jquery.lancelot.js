@@ -3,7 +3,7 @@ $.fn.lancelot = function(options) {
 
 	var defaults = {
 		hoverTime: 2000,
-		class: "lancelotGo",
+		aclass: "lancelotGo",
 		atext: "go",
 		show: "true",
 		display: "inline",
@@ -33,8 +33,8 @@ $.fn.lancelot = function(options) {
 		};
 
 		//create link
-		obj.append(' <a href="'+ahref+'" class="'+options.class+'" title="'+options.atitle+'">'+options.atext+'</a>');
-		var goLink = obj.find("."+options.class).css("display", options.display);
+		obj.append(' <a href="'+ahref+'" class="'+options.aclass+'" title="'+options.atitle+'">'+options.atext+'</a>');
+		var goLink = obj.find("."+options.aclass).css("display", options.display);
 
 		//show animation
 		if(options.show != "true"){
