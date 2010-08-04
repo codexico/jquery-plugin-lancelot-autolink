@@ -8,9 +8,9 @@ $.fn.lancelot = function(options) {
 		show: "false",			//
 		display: "inline",		//inline, block ...
 		speed: "fast",			//animation
-		linkAction: "location",	//open, _blank
+		linkAction: "location",	//open, _blank or none
 		atitle: "go in 2s",		//link title
-		alink: false			//url OR function
+		alink: false			//url OR function or none
 	}
 	var options = $.extend(defaults, options);
 
@@ -18,7 +18,6 @@ $.fn.lancelot = function(options) {
     return this.each(function() {
 		obj = $(this);
 		var t = '';
-		var str = obj.text();
 
 		//where we go?
 		var ahref = "";

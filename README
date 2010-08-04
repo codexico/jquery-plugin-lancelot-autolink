@@ -1,6 +1,73 @@
+README
+======
+
 jQuery Plugin inspired by Lancelot for KDE no-click interface.
+
+Automatically go to the link only with hover, no need to click!
+
+
+Example
+=======
+See the demo for more.
+
+
+	$('.lancelot').lancelot({
+		hoverTime: 2000,			//time to launch the link
+		aclass: "lancelotGo",		//style, see lancelot.css
+		atext: "hover here!",		//text to show
+		show: "false",				//
+		display: "inline",			//inline, block ...
+		speed: "fast",				//animation
+		linkAction: "_blank",		//open, _blank or none
+		atitle: "go in 2s",			//link title
+		alink: "http://example.com" //url OR function or none
+	});
+
+
+Advanced
+--------
+You can pass a function to "alink", example:
+
+	var googleSearch = function(){
+		//obj is a reference to each $('.lancelot')
+		return "http://google.com/#q="+obj.text()
+	};
+
+	$('.lancelot').lancelot({
+		alink: googleSearch
+	});
+
+This will create a link to google search with the text from $('.lancelot').
+
+See this working on http://ttlocal.info
+
+
+
+License (choose one or more)
+===========================
+
+Creative Commons GNU General Public License License:
+http://creativecommons.org/licenses/GPL/2.0/
+
+MIT:
+http://www.opensource.org/licenses/mit-license.php
+
+GPL:
+http://www.gnu.org/licenses/gpl.html
+
+
+Reference
+=========
+
+github:
+http://github.com/codexico/jquery-plugin-lancelot-autolink
 
 Lancelot links:
 http://lancelot.fomentgroup.org
 http://userbase.kde.org/Lancelot
 
+
+
+
+"Copyleft; All Wrongs Reserved"
+http://www.gnu.org/copyleft/copyleft.html
