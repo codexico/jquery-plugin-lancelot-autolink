@@ -2,7 +2,7 @@
 $.fn.lancelot = function(options) {
 
 	var defaults = {
-		hoverTime: 3000,
+		hoverTime: 2000,
 		class: "lancelotGo",
 		atext: "go",
 		show: "true",
@@ -29,12 +29,11 @@ $.fn.lancelot = function(options) {
 				default:
 					window.location = ahref;
 			}
-		}
+		};
 
 		//create link
-		obj.append(' <a href="'+ahref+'" class="'+options.class+'">'+options.atext+'</a>')
-		var goLink = $("."+options.class, obj)
-		goLink.css("display", options.display)
+		obj.append(' <a href="'+ahref+'" class="'+options.class+'">'+options.atext+'</a>');
+		var goLink = obj.find("."+options.class).css("display", options.display);
 
 		//show animation
 		if(options.show != "true"){
@@ -47,7 +46,7 @@ $.fn.lancelot = function(options) {
 					goLink.fadeOut(options.speed)
 				}
 			);
-		}
+		};
 
 		//prepare to launch
 		goLink.hover(
@@ -58,12 +57,9 @@ $.fn.lancelot = function(options) {
 				t = setTimeout(launch, options.hoverTime);
 			},
 			function(){
-				if(t) {
-					clearTimeout(t);
-				}
+				clearTimeout(t);
 			}
-		)//goLink.hover
-
-	})//each
+		);//goLink.hover
+	});//each
 };
 })(jQuery);
