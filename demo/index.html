@@ -19,7 +19,8 @@
 
 		var googleSearch = function(){
 			//obj is a reference to each $('.lancelot2')
-			return "http://www.google.com/search?q="+obj.text()
+            var search = obj.text().replace(/^#/,'');
+			return "http://www.google.com/search?q="+search
 		};
 		$('.lancelot2').lancelot({
 			hoverTime: 3000,
