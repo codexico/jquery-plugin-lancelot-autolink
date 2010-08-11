@@ -20,7 +20,8 @@ See the demo for more.
 		speed: "fast",				//animation
 		linkAction: "_blank",		//open, _blank or none
 		atitle: "go in 2s",			//link title
-		alink: "http://example.com" //url OR function or none
+		alink: "http://example.com", //url OR function or none
+        element: "span"				//element to hover
 	});
 
 
