@@ -10,7 +10,8 @@
             speed: "fast",		//animation
             linkAction: "location",     //open, _blank
             atitle: "go in 2s",		//link title
-            alink: false		//url OR function
+            alink: false,		//url OR function
+            element: "a"                //element to hover
         }
         var options = $.extend(defaults, options);
 
@@ -29,9 +30,14 @@
                 ahref = obj.attr("href");
             }
 
-            //create link
-            obj.append(' <a href="'+ahref+'" class="'+options.aclass+'" title="'+options.atitle+'">'+options.atext+'</a>');
+            //create element
+            if(options.element !== "a"){
+                obj.append($( document.createElement(options.element)).addClass(options.aclass))
+            }else{
+                obj.append(' <a href="'+ahref+'" class="'+options.aclass+'" title="'+options.atitle+'">'+options.atext+'</a>');
+            }
             var goLink = obj.find("."+options.aclass).css("display", options.display);
+
 
             //show animation
             if(options.show != "true"){
