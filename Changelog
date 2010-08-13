@@ -1,0 +1,63 @@
+Changelog
+=========
+
+
+ * Version 0.7.1
+ * 2010-08-13
+- Changelog
+- jquery.lancelot.js documentation
+
+
+ * Version 0.7
+ * 2010-08-12
+- using obj as reference to the external functions
+
+
+ * Version 0.6
+ * 2010-08-12
+- new parameter "launch" //function to call when hoverTime is over
+
+
+ * Version 0.5
+ * 2010-08-12
+- some code quality with JSLint
+- playing with the Module Pattern
+
+
+ * Version 0.4.1
+ * 2010-08-12
+- remove parameter "display"
+
+
+ * Version 0.4
+ * 2010-08-10
+- new parameter "element", option to create other element instead of the default <a>
+
+
+ * Version 0.3.1
+ * 2010-08-06
+- rename defaults
+
+
+ * Version 0.3
+ * 2010-08-04
+- using images and css
+
+
+ * Version 0.2.1
+ * 2010-08-04
+- better demo
+
+
+ * Version 0.2
+ * 2010-08-03
+- demo
+- timer
+- README
+- default parameters
+- mousehover
+
+
+ * Version 0.0.1
+ * 2010-08-03
+- commit to github

@@ -1,3 +1,27 @@
+/**
+ * jQuery Lancelot Plugin
+ * Allows navigation with mouse hover.
+ *
+ * Feel in use: http://ttlocal.info
+ *
+ * Author: codexico http://codexico.com.br
+ *
+ * Source and Demo: http://github.com/codexico/jquery-plugin-lancelot-autolink
+ * Project Backlog: http://www.pivotaltracker.com/projects/104617
+ * blog (português): http://codexico.com.br/blog/jquery-lancelot-plugin
+ *
+ *
+ * License (choose one or more):
+ * Creative Commons GNU General Public License License: http://creativecommons.org/licenses/GPL/2.0/
+ * MIT: http://www.opensource.org/licenses/mit-license.php
+ * GPL: http://www.gnu.org/licenses/gpl.html
+ * "Copyleft; All Wrongs Reserved": http://www.gnu.org/copyleft/copyleft.html
+ *
+ *
+ * Version 0.7.1
+ * 2010-08-13
+ */
+
 (function ($) {
     $.fn.lancelot = function (options) {
         var L = {};//closure
@@ -10,7 +34,7 @@
             linkAction: "location",	//if "open" or "_blank" will try to open a new window. TODO: accept parameters
             atitle: "go in 2s",		//link title
             alink: false,		//if 'string' will use as the url, if 'function' will call to build the url
-            element: "a",		//element to hover
+            element: "a",		//element to hover, ex: "span", "div"
             launch: false               //function to call when hoverTime is over
         };
         L.o = $.extend(L.defaults, options);
