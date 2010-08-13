@@ -1,6 +1,6 @@
 (function ($) {
     $.fn.lancelot = function (options) {
-        var L = {};
+        var L = {};//closure
         L.defaults = {
             hoverTime: 2000,		//time to launch the link in miliseconds
             aclass: "lancelotGo",	//style, @see lancelot.css
@@ -17,7 +17,8 @@
 
         //the plugin
         return this.each(function () {
-            obj = $(this);
+            //obj is a reference to each $('.lancelot')
+            var obj = $(this);
 
 
             //where we go?
@@ -25,9 +26,10 @@
             if (L.o.alink !== false) {
                 ahref = L.o.alink;
                 if ($.isFunction(L.o.alink)) {
-                    ahref = L.o.alink.call();
+                    ahref = L.o.alink(obj);
                 }
             }
+            L.ahref = ahref;
 
 
             //create and append element to hover
@@ -40,6 +42,7 @@
 
             //get the new created element
             var goLink = obj.find("." + L.o.aclass);
+            L.goLink = goLink;
 
 
             //show animation
@@ -78,7 +81,7 @@
                         window.clearTimeout(L.t);
                     }
                     if (L.o.launch !== false && $.isFunction(L.o.launch)) {
-                        L.t = window.setTimeout(L.o.launch(ahref), L.o.hoverTime);//pass ahref now or it will be lost!
+                        L.t = window.setTimeout(L.o.launch(obj), L.o.hoverTime);//pass L now or it will be lost!
                     } else {
                         L.t = window.setTimeout(launch, L.o.hoverTime);
                     }
