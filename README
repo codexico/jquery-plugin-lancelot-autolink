@@ -8,8 +8,6 @@ Automatically go to the link only with hover, no need to click!
 
 Example
 =======
-See the demo for more.
-
 
 	$('.lancelot').lancelot({
             hoverTime: 2000,		//time to launch the link in miliseconds
@@ -23,6 +21,11 @@ See the demo for more.
             element: "a",			//element to hover, ex: "span", "div"
             launch: false			//function to call when hoverTime is over
 	});
+
+Demo online: http://codexico.com.br/projetos/lancelot/demo/
+Real use: http://ttlocal.info
+
+Code for demo on github: http://github.com/codexico/jquery-plugin-lancelot-autolink
 
 
 Advanced
@@ -48,7 +51,6 @@ This will create a link to google search with the text from $('.lancelot') and
 execute launchAction when hoverTime is over.
 
 See this working on http://ttlocal.info
-
 
 
 License (choose one or more)
