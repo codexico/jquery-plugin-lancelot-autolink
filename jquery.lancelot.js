@@ -1,6 +1,6 @@
 (function ($) {
     $.fn.lancelot = function (options) {
-		var L = {};
+        var L = {};
         L.defaults = {
             hoverTime: 2000,		//time to launch the link
             aclass: "lancelotGo",	//style, see lancelot.css
@@ -14,18 +14,18 @@
         };
         L.o = $.extend(L.defaults, options);
 
-
         //the plugin
         return this.each(function () {
             obj = $(this);
 
 
             //where we go?
-            L.ahref =  obj.attr("href");
-			if ($.isFunction(L.o.alink)) {
-                L.ahref = L.o.alink.call();
-			} else if (L.o.alink !== false) {
-				L.ahref = L.o.alink;
+            var ahref = obj.attr("href");
+            if (L.o.alink !== false) {
+                ahref = L.o.alink;
+                if ($.isFunction(L.o.alink)) {
+                    ahref = L.o.alink.call();
+                }
             }
 
 
@@ -33,7 +33,7 @@
             if (L.o.element !== "a") {
                 obj.append($(document.createElement(L.o.element)).addClass(L.o.aclass));
             } else {
-                obj.append(' <a href="' + L.ahref + '" class="' + L.o.aclass + '" title="' + L.o.atitle + '">' + L.o.atext + '</a>');
+                obj.append(' <a href="' + ahref + '" class="' + L.o.aclass + '" title="' + L.o.atitle + '">' + L.o.atext + '</a>');
             }
             var goLink = obj.find("." + L.o.aclass);
 
@@ -48,37 +48,37 @@
                     function () {
                         goLink.fadeOut(L.o.speed);
                     }
-				);
+                    );
             }
 
 
-            L.launch = function () {
+            var launch = function () {
                 switch (L.o.linkAction) {
-				case "open":
-                    window.open(this);
-					break;
-				case "_blank":
-					window.open(this, '_blank');
-                    break;
-				default:
-                    window.location = L.ahref;
+                    case "open":
+                        window.open(this);
+                        break;
+                    case "_blank":
+                        window.open(this, '_blank');
+                        break;
+                    default:
+                        window.location = ahref;
                 }
             };
 
 
             //prepare to launch
-            L.t = {};//timer
+            L.t = false;//timer
             goLink.hover(
                 function () {
                     if (L.t) {
                         window.clearTimeout(L.t);
                     }
-                    L.t = window.setTimeout(L.launch, L.o.hoverTime);
+                    L.t = window.setTimeout(launch, L.o.hoverTime);
                 },
                 function () {
                     window.clearTimeout(L.t);
                 }
-			);
+                );
 
 
         });//each

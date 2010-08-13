@@ -1,9 +1,23 @@
+.lancelot{
+	background-color: red;
+}
+.lancelot2{
+	background-color: #ccc;
+}
+.lancelot3{
+	background-color: yellow;
+}
+.lancelot4{
+	border: 1px solid green;
+}
+
+
 .lancelotGo{
 	background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
 	padding:0 0 0 13px;
 }
 .lancelotGo2{
-	background:url("images/lancelot-icon.png") no-repeat scroll right center transparent;
+	background: url("images/lancelot-icon.png") no-repeat scroll right center transparent;
 	padding:0 13px 0 6px;
 }
 .lancelotGo3{
