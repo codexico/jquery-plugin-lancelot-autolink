@@ -2,15 +2,16 @@
     $.fn.lancelot = function (options) {
         var L = {};
         L.defaults = {
-            hoverTime: 2000,		//time to launch the link
-            aclass: "lancelotGo",	//style, see lancelot.css
-            atext: "",				//text to show
-            show: "false",			//
-            speed: "fast",			//animation
-            linkAction: "location",	//open, _blank
+            hoverTime: 2000,		//time to launch the link in miliseconds
+            aclass: "lancelotGo",	//style, @see lancelot.css
+            atext: "",			//text to show
+            show: "false",		//if true dont hide the lancelots
+            speed: "fast",		//animation. TODO: other options
+            linkAction: "location",	//if "open" or "_blank" will try to open a new window. TODO: accept parameters
             atitle: "go in 2s",		//link title
-            alink: false,			//url OR function
-            element: "a"			//element to hover
+            alink: false,		//if 'string' will use as the url, if 'function' will call to build the url
+            element: "a",		//element to hover
+            launch: false               //function to call when hoverTime is over
         };
         L.o = $.extend(L.defaults, options);
 
@@ -29,12 +30,15 @@
             }
 
 
-            //create element
+            //create and append element to hover
+            L.o.hoverElement = ' <a href="' + ahref + '" class="' + L.o.aclass + '" title="' + L.o.atitle + '">' + L.o.atext + '</a>';
             if (L.o.element !== "a") {
-                obj.append($(document.createElement(L.o.element)).addClass(L.o.aclass));
-            } else {
-                obj.append(' <a href="' + ahref + '" class="' + L.o.aclass + '" title="' + L.o.atitle + '">' + L.o.atext + '</a>');
+                L.o.hoverElement = $(document.createElement(L.o.element)).addClass(L.o.aclass);
             }
+            obj.append(L.o.hoverElement);
+
+
+            //get the new created element
             var goLink = obj.find("." + L.o.aclass);
 
 
@@ -55,10 +59,10 @@
             var launch = function () {
                 switch (L.o.linkAction) {
                     case "open":
-                        window.open(this);
+                        window.open(ahref, "ttlocalwindow");
                         break;
                     case "_blank":
-                        window.open(this, '_blank');
+                        window.open(ahref, '_blank');
                         break;
                     default:
                         window.location = ahref;
@@ -73,7 +77,11 @@
                     if (L.t) {
                         window.clearTimeout(L.t);
                     }
-                    L.t = window.setTimeout(launch, L.o.hoverTime);
+                    if (L.o.launch !== false && $.isFunction(L.o.launch)) {
+                        L.t = window.setTimeout(L.o.launch(ahref), L.o.hoverTime);//pass ahref now or it will be lost!
+                    } else {
+                        L.t = window.setTimeout(launch, L.o.hoverTime);
+                    }
                 },
                 function () {
                     window.clearTimeout(L.t);
