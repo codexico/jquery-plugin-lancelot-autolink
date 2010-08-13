@@ -12,34 +12,40 @@ See the demo for more.
 
 
 	$('.lancelot').lancelot({
-		hoverTime: 2000,			//time to launch the link
-		aclass: "lancelotGo",		//style, see lancelot.css
-		atext: "hover here!",		//text to show
-		show: "false",				//
-		display: "inline",			//inline, block ...
-		speed: "fast",				//animation
-		linkAction: "_blank",		//open, _blank or none
-		atitle: "go in 2s",			//link title
-		alink: "http://example.com", //url OR function or none
-        element: "span"				//element to hover
+            hoverTime: 2000,		//time to launch the link in miliseconds
+            aclass: "lancelotGo",	//style, @see lancelot.css
+            atext: "",				//text to show
+            show: "false",			//if true dont hide the lancelots
+            speed: "fast",			//speed animation
+            linkAction: "location",	//if "open" or "_blank" will try to open a new window
+            atitle: "go in 2s",		//link title
+            alink: false,			//if 'string' will use as the url, if 'function' will call to build the url
+            element: "a",			//element to hover, ex: "span", "div"
+            launch: false			//function to call when hoverTime is over
 	});
 
 
 Advanced
 --------
-You can pass a function to "alink", example:
+You can pass functions to "alink" and "launch", example:
 
-	var googleSearch = function(){
-		//obj is a reference to each $('.lancelot')
-		var search = obj.text().replace(/^#/,'');
-		return "http://www.google.com/search?q="+search
-	};
+    var googleSearch = function(obj){
+        //obj is a reference to each $('.lancelot')
+        var search = obj.text().replace(/^#/,'');
+        return "http://www.google.com/search?q="+search;
+    };
+
+	var launcAction = function(obj){
+		//do something
+    };
 
 	$('.lancelot').lancelot({
-		alink: googleSearch
+		alink: googleSearch,
+        launch: launchAction
 	});
 
-This will create a link to google search with the text from $('.lancelot').
+This will create a link to google search with the text from $('.lancelot') and
+execute launchAction when hoverTime is over.
 
 See this working on http://ttlocal.info
 
@@ -69,6 +75,8 @@ Reference
 
 github:
 http://github.com/codexico/jquery-plugin-lancelot-autolink
+Project Backlog:
+http://www.pivotaltracker.com/projects/104617
 
 Lancelot links:
 http://lancelot.fomentgroup.org

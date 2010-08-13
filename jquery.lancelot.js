@@ -4,7 +4,6 @@
  *
  * Feel in use: http://ttlocal.info
  *
- * Author: codexico http://codexico.com.br
  *
  * Source and Demo: http://github.com/codexico/jquery-plugin-lancelot-autolink
  * Project Backlog: http://www.pivotaltracker.com/projects/104617
@@ -17,6 +16,9 @@
  * GPL: http://www.gnu.org/licenses/gpl.html
  * "Copyleft; All Wrongs Reserved": http://www.gnu.org/copyleft/copyleft.html
  *
+ * Author: codexico
+ * site: http://codexico.com.br
+ * twitter: @codexico
  *
  * Version 0.7.1
  * 2010-08-13
