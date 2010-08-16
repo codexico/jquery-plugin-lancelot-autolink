@@ -4,6 +4,7 @@
  *
  * Feel in use: http://ttlocal.info
  *
+ * Author: codexico http://codexico.com.br
  *
  * Source and Demo: http://github.com/codexico/jquery-plugin-lancelot-autolink
  * Project Backlog: http://www.pivotaltracker.com/projects/104617
@@ -16,9 +17,6 @@
  * GPL: http://www.gnu.org/licenses/gpl.html
  * "Copyleft; All Wrongs Reserved": http://www.gnu.org/copyleft/copyleft.html
  *
- * Author: codexico
- * site: http://codexico.com.br
- * twitter: @codexico
  *
  * Version 0.7.1
  * 2010-08-13
@@ -33,7 +31,7 @@
             atext: "",			//text to show
             show: "false",		//if true dont hide the lancelots
             speed: "fast",		//animation. TODO: other options
-            linkAction: "location",	//if "open" or "_blank" will try to open a new window. TODO: accept parameters
+            linkAction: "location",	//"location" only redirects, "open" or "_blank" will try to open a new window, "tryPop" will try to popup and then redirect. TODO: accept parameters
             atitle: "go in 2s",		//link title
             alink: false,		//if 'string' will use as the url, if 'function' will call to build the url
             element: "a",		//element to hover, ex: "span", "div"
@@ -85,13 +83,39 @@
             }
 
 
+            //works in some browsers... try before use in production
+            var tryPop = function(d){
+                var Y=550,g=450,
+                b=screen.height,
+                a=screen.width,
+                Z=Math.round((a/2)-(Y/2)),
+                f=0,
+                X=ahref;
+                if(b>g){
+                    f=Math.round((b/2)-(g/2));
+                }
+                // if accept parameters
+                //var c=window.open(X,"twitter_tweet","left="+Z+",top="+f+",width="+Y+",height="+g+",personalbar=no,toolbar=no,scrollbars=yes,location=yes,resizable=yes");
+                var c=window.open(X,"ttlocal search");
+                if(c){
+                    c.focus();
+                }else{
+                    window.location.href=X
+                }
+                K(d)
+            };
+
+
             var launch = function () {
                 switch (L.o.linkAction) {
                     case "open":
-                        window.open(ahref, "ttlocalwindow");
+                        window.open(ahref, "ttlocal search");
                         break;
                     case "_blank":
                         window.open(ahref, '_blank');
+                        break;
+                    case "tryPop":
+                        tryPop();//TODO: accept parameters
                         break;
                     default:
                         window.location = ahref;
@@ -117,6 +141,14 @@
                 }
                 );
 
+            //strange behaviors
+            function K(X){
+                if(X&&X.stopPropagation){
+                    X.stopPropagation()
+                }else{
+                    window.event.cancelBubble=true
+                }
+            }
 
         });//each
     };//fn.lancelot
