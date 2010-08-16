@@ -1,6 +1,13 @@
 Changelog
 =========
 
+ * Version 0.7.3
+ * 2010-08-16
+- JSLint
+
+ * Version 0.7.2
+ * 2010-08-16
+- new parameter to 'launch': tryPop, will try to popup and if fails, redirect
 
  * Version 0.7.1
  * 2010-08-13

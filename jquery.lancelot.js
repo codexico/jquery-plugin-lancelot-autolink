@@ -18,20 +18,25 @@
  * "Copyleft; All Wrongs Reserved": http://www.gnu.org/copyleft/copyleft.html
  *
  *
- * Version 0.7.1
- * 2010-08-13
+ * Version 0.7.3
+ * 2010-08-16
  */
 
 (function ($) {
     $.fn.lancelot = function (options) {
-        var L = {};//closure
+
+        //define a closure
+        var L = {};
+
+
         L.defaults = {
             hoverTime: 2000,		//time to launch the link in miliseconds
             aclass: "lancelotGo",	//style, @see lancelot.css
             atext: "",			//text to show
             show: "false",		//if true dont hide the lancelots
             speed: "fast",		//animation. TODO: other options
-            linkAction: "location",	//"location" only redirects, "open" or "_blank" will try to open a new window, "tryPop" will try to popup and then redirect. TODO: accept parameters
+            linkAction: "location",	//"location" only redirects, "open" or "_blank" will try to open a new window, "tryPop" will try to popup and then redirect.
+            //windowOpen: false,          //TODO: parameters
             atitle: "go in 2s",		//link title
             alink: false,		//if 'string' will use as the url, if 'function' will call to build the url
             element: "a",		//element to hover, ex: "span", "div"
@@ -42,11 +47,32 @@
         //the plugin
         return this.each(function () {
             //obj is a reference to each $('.lancelot')
-            var obj = $(this);
+            var obj = $(this),
+
+            //the place where the Lancelot will take us
+            ahref,
+
+            //reference to the element created to be the Lancelot
+            goLink,
+
+            //function that try to open a new popup, and if cant, redirect the page
+            tryPop,
+
+            //reference to window opened
+            c,
+
+            //function to handle strange browsers things, unicorns and gods
+            stop,
+
+            //function to execute the Lancelot
+            launch,
+
+            //function that redirects the browser to another link
+            redirectTo;
 
 
             //where we go?
-            var ahref = obj.attr("href");
+            ahref = obj.attr("href");
             if (L.o.alink !== false) {
                 ahref = L.o.alink;
                 if ($.isFunction(L.o.alink)) {
@@ -65,7 +91,7 @@
 
 
             //get the new created element
-            var goLink = obj.find("." + L.o.aclass);
+            goLink = obj.find("." + L.o.aclass);
             L.goLink = goLink;
 
 
@@ -82,31 +108,38 @@
                     );
             }
 
-
-            //works in some browsers... try before use in production
-            var tryPop = function(d){
-                var Y=550,g=450,
-                b=screen.height,
-                a=screen.width,
-                Z=Math.round((a/2)-(Y/2)),
-                f=0,
-                X=ahref;
-                if(b>g){
-                    f=Math.round((b/2)-(g/2));
-                }
-                // if accept parameters
-                //var c=window.open(X,"twitter_tweet","left="+Z+",top="+f+",width="+Y+",height="+g+",personalbar=no,toolbar=no,scrollbars=yes,location=yes,resizable=yes");
-                var c=window.open(X,"ttlocal search");
-                if(c){
-                    c.focus();
-                }else{
-                    window.location.href=X
-                }
-                K(d)
+            redirectTo = function (d) {
+                window.location.href = ahref;
+                stop(d);
             };
 
 
-            var launch = function () {
+            //works in some browsers... try before use in production
+            tryPop = function (d) {
+                /*
+                //TODO:  accept parameters
+                var Y = 550, g = 450,
+                b = screen.height,
+                a = screen.width,
+                Z = Math.round((a / 2) - (Y / 2)),
+                f = 0;
+                if (b > g) {
+                    f = Math.round((b / 2) - (g / 2));
+                }
+                var c=window.open(X,"ttlocal search","left="+Z+",top="+f+",width="+Y+",height="+g+",personalbar=no,toolbar=no,scrollbars=yes,location=yes,resizable=yes");
+                */
+                c = window.open(ahref, "ttlocal search");
+                if (c) {
+                    c.focus();
+                } else {
+                    redirectTo();
+                }
+                stop(d);
+            };
+
+
+
+            launch = function () {
                 switch (L.o.linkAction) {
                     case "open":
                         window.open(ahref, "ttlocal search");
@@ -118,7 +151,7 @@
                         tryPop();//TODO: accept parameters
                         break;
                     default:
-                        window.location = ahref;
+                        redirectTo();
                 }
             };
 
@@ -141,14 +174,16 @@
                 }
                 );
 
-            //strange behaviors
-            function K(X){
-                if(X&&X.stopPropagation){
-                    X.stopPropagation()
-                }else{
-                    window.event.cancelBubble=true
+
+            //strange behaviors in browsers
+            stop = function (X) {
+                if (X && X.stopPropagation) {
+                    X.stopPropagation();
+                } else {
+                    window.event.cancelBubble = true;
                 }
-            }
+            };
+
 
         });//each
     };//fn.lancelot
