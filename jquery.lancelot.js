@@ -6,7 +6,8 @@
  *
  * Author: codexico http://codexico.com.br
  *
- * Source and Demo: http://github.com/codexico/jquery-plugin-lancelot-autolink
+ * Source: http://github.com/codexico/jquery-plugin-lancelot-autolink
+ * Demo: http://codexico.com.br/projetos/lancelot/demo/
  * Project Backlog: http://www.pivotaltracker.com/projects/104617
  * blog (português): http://codexico.com.br/blog/jquery-lancelot-plugin
  *
@@ -18,8 +19,8 @@
  * "Copyleft; All Wrongs Reserved": http://www.gnu.org/copyleft/copyleft.html
  *
  *
- * Version 0.7.3
- * 2010-08-16
+ * Version 0.8
+ * 2010-09-03
  */
 
 (function ($) {
@@ -36,7 +37,6 @@
             show: "false",		//if true dont hide the lancelots
             speed: "fast",		//animation. TODO: other options
             linkAction: "location",	//"location" only redirects, "open" or "_blank" will try to open a new window, "tryPop" will try to popup and then redirect.
-            //windowOpen: false,          //TODO: parameters
             atitle: "go in 2s",		//link title
             alink: false,		//if 'string' will use as the url, if 'function' will call to build the url
             element: "a",		//element to hover, ex: "span", "div"
@@ -60,9 +60,6 @@
 
             //reference to window opened
             c,
-
-            //function to handle strange browsers things, unicorns and gods
-            stop,
 
             //function to execute the Lancelot
             launch,
@@ -108,35 +105,20 @@
                     );
             }
 
-            redirectTo = function (d) {
+            redirectTo = function () {
                 window.location.href = ahref;
-                stop(d);
             };
 
 
-            //works in some browsers... try before use in production
-            tryPop = function (d) {
-                /*
-                //TODO:  accept parameters
-                var Y = 550, g = 450,
-                b = screen.height,
-                a = screen.width,
-                Z = Math.round((a / 2) - (Y / 2)),
-                f = 0;
-                if (b > g) {
-                    f = Math.round((b / 2) - (g / 2));
-                }
-                var c=window.open(X,"ttlocal search","left="+Z+",top="+f+",width="+Y+",height="+g+",personalbar=no,toolbar=no,scrollbars=yes,location=yes,resizable=yes");
-                */
+            //ALERT: works in some browsers... try before use in production
+            tryPop = function () {
                 c = window.open(ahref, "ttlocal search");
                 if (c) {
                     c.focus();
                 } else {
                     redirectTo();
                 }
-                stop(d);
             };
-
 
 
             launch = function () {
@@ -173,16 +155,6 @@
                     window.clearTimeout(L.t);
                 }
                 );
-
-
-            //strange behaviors in browsers
-            stop = function (X) {
-                if (X && X.stopPropagation) {
-                    X.stopPropagation();
-                } else {
-                    window.event.cancelBubble = true;
-                }
-            };
 
 
         });//each
