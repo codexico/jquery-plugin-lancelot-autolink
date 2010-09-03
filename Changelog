@@ -1,6 +1,12 @@
 Changelog
 =========
 
+ * Version 0.8
+ * 2010-09-03
+- function stop was unnecessary
+- minified using yuicompressor
+- compiled using Closure Compiler
+
  * Version 0.7.3
  * 2010-08-16
 - JSLint
