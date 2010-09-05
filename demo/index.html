@@ -1,232 +1,266 @@
 <html>
-<head>
-	<title>Lancelot Plugin Demo</title>
-	<script src="jquery-1.4.2.min.js" type="text/javascript"></script>
-	<script src="../jquery.lancelot.js" type="text/javascript"></script>
-	<script type="text/javascript">
-	jQuery(document).ready(function($) {
-
-		$('.lancelot').lancelot();
+    <head>
+        <title>Lancelot Plugin Demo</title>
+        <script src="jquery-1.4.2.min.js" type="text/javascript"></script>
 
 
-		$('.lancelot2').lancelot({
-			hoverTime: 3000,
-			aclass: "lancelotGo2",
-			atext: "hover here!",
-			show: "true",
-			speed: "fast",
-			linkAction: "location",
-			alink: "http://ttlocal.info" //passing url
-		});
+        <script type="text/javascript" src="syntax/scripts/shCore.js"></script>
+        <script type="text/javascript" src="syntax/scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="syntax/scripts/shBrushCss.js"></script>
+        <script type="text/javascript" src="syntax/scripts/shBrushXml.js"></script>
+        <link href="syntax/styles/shCore.css" rel="stylesheet" type="text/css" />
+        <link href="syntax/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
 
 
-		$('.lancelot3').lancelot({
-			hoverTime: 1000,
-			aclass: "lancelotGo3",
-			atext: "go",
-			speed: "slow",
-			element: "span",		//<span> instead of <a>
-			linkAction: "_blank"	//new window
-		});
+        <script src="../jquery.lancelot.js" type="text/javascript"></script>
 
 
-		var googleSearch = function(obj){
-			//obj is a reference to each $('.lancelot4')
-            var search = obj.text().replace(/^#/,'');
-			return "http://www.google.com/search?q="+search
-		};
-		$('.lancelot4').lancelot({
-			hoverTime: 3000,
-			aclass: "lancelotGo4",
-			atext: "",
-			show: "false",
-			speed: "fast",
-			linkAction: "location",
-			alink: googleSearch			//passing function!
-		});
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+
+                $('.lancelot').lancelot();
 
 
-	});
-	</script>
-	<link media="all" type="text/css" href="lancelot.css" rel="stylesheet">
-</head>
-<body>
-
-<br />
-<p>
-<em>Example1:</em>
-</p>
-<pre>
-		$('.lancelot').lancelot();
-
-		&lt;a href="http://ttlocal.info" class="lancelot">Sed&lt;/a>
-
-		--
-
-		<em>Result:</em>
-		&lt;a class="lancelot" href="http://ttlocal.info">Sed
-			&lt;a title="go in 2s" class="lancelotGo" href="http://ttlocal.info" style="display: none;">&lt;/a>
-		&lt;/a>
+                $('.lancelot2').lancelot({
+                    hoverTime: 3000,
+                    aclass: "lancelotGo2",
+                    atext: "hover here!",
+                    show: "true",
+                    speed: "fast",
+                    linkAction: "location",
+                    alink: "http://ttlocal.info" //passing url
+                });
 
 
-		<em>CSS:</em>
-		.lancelot{
-			background-color: red;
-		}
-		.lancelotGo{
-			background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
-			padding:0 0 0 13px;
-		}
-</pre>
-<a href="http://ttlocal.info" class="lancelot">Sed</a>
-
-<br />
-<br />
-<hr />
-
-<br />
-<p>
-<em>Example2:</em>
-Showing text, original link to http://google.com and lancelot link to http://ttlocal.info
-</p>
-<pre>
-		$('.lancelot2').lancelot({
-			hoverTime: 3000,
-			aclass: "lancelotGo2",
-			atext: "hover here!",
-			show: "true",
-			speed: "fast",
-			linkAction: "location",
-			alink: "http://ttlocal.info" //passing url
-		});
-		&lt;a href="http://google.com" class="lancelot2">test&lt;/a>
-
-		--
-
-		<em>Result:</em>
-		&lt;a class="lancelot2" href="http://google.com">test
-			&lt;a title="go in 2s" class="lancelotGo2" href="http://ttlocal.info">hover here!&lt;/a>
-		&lt;/a>
+                $('.lancelot3').lancelot({
+                    hoverTime: 1000,
+                    aclass: "lancelotGo3",
+                    atext: "go",
+                    speed: "slow",
+                    element: "span",	//<span> instead of <a>
+                    linkAction: "_blank"  //new window
+                });
 
 
-		<em>CSS:</em>
-		.lancelot2{
-			background-color: #ccc;
-		}
-		.lancelotGo2{
-			background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
-			padding:0 0 0 13px;
-			display: block;
-		}
-</pre>
-<a href="http://google.com" class="lancelot2">test</a>
-
-<br />
-<br />
-<hr />
-
-<br />
-<p>
-<em>Example3:</em>
-Using span in the generated link.
-</p>
-	<pre>
-		$('.lancelot3').lancelot({
-			hoverTime: 1000,
-			aclass: "lancelotGo3",
-			atext: "go",
-			speed: "slow",
-			element: "span",	//< span > instead of < a >
-			linkAction: "_blank"	//new window
-		});
-		&lt;a href="http://github.com/codexico/jquery-plugin-lancelot-autolink" class="lancelot3"&gt;Fork me!&lt;/a&gt;
-
-		--
-
-		<em>Result:</em>
-		&lt;a class="lancelot3" href="http://github.com/codexico/jquery-plugin-lancelot-autolink">Fork me!
-			&lt;span class="lancelotGo3" style="display: none;">&lt;/span>
-		&lt;/a>
+                var googleSearch = function(obj){
+                    //obj is a reference to each $('.lancelot4')
+                    var search = obj.text().replace(/^#/,'');
+                    return "http://www.google.com/search?q="+search
+                };
+                $('.lancelot4').lancelot({
+                    hoverTime: 3000,
+                    aclass: "lancelotGo4",
+                    atext: "",
+                    show: "false",
+                    speed: "fast",
+                    linkAction: "location",
+                    alink: googleSearch	  //passing function!
+                });
 
 
-		<em>CSS:</em>
-		.lancelot3{
-			background-color: yellow;
-		}
-		.lancelotGo3{
-			background: url("images/lancelot-icon.png") no-repeat scroll right center transparent;
-			padding:0 13px 0 6px;
-		}
-		</pre>
-<a href="http://github.com/codexico/jquery-plugin-lancelot-autolink" class="lancelot3">Fork me!</a>
+            });
+        </script>
+        <link media="all" type="text/css" href="lancelot.css" rel="stylesheet">
+    </head>
+    <body>
 
-<br />
-<br />
-<hr />
-
-<br />
-<p>
-	<em>Example4:</em>
-	Using a function to generate the lancelot link.
-</p>
-<pre>
-		var googleSearch = function(obj){
-			//obj is a reference to each $('.lancelot4')
-			var search = obj.text().replace(/^#/,'');
-			return "http://www.google.com/search?q="+search
-		};
-		$('.lancelot4').lancelot({
-			hoverTime: 3000,
-			aclass: "lancelotGo4",
-			atext: "",
-			show: "false",
-			speed: "fast",
-			linkAction: "location",
-			alink: googleSearch			//passing function!
-		});
-		&lt;a href="http://jquery.com" class="lancelot4">lancelot&lt;/a>
-
-		--
-
-		<em>Result:</em>
-		&lt;a class="lancelot4" href="http://jquery.com">lancelot
-			&lt;a title="go in 2s" class="lancelotGo4" href="http://www.google.com/search?q=lancelot" style="display: inline;">&lt;/a>
-		&lt;/a>
+        <br />
+        <p>
+            <em>Example1:</em>
+        </p>
+        <em>html:</em>
+        <pre class="brush: html">
+            &lt;a href="http://ttlocal.info" class="lancelot">Sed&lt;/a>
+        </pre>
+        <em>JS:</em>
+        <pre class="brush: js">
+            $('.lancelot').lancelot();
+        </pre>
+        <em>CSS:</em>
+        <pre class="brush: css">
+            .lancelot{
+                background-color: red;
+            }
+            .lancelotGo{
+                background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
+                padding:0 0 0 13px;
+            }
+        </pre>
+        <em>Result:</em>
+        <pre class="brush: html">
+            &lt;a class="lancelot" href="http://ttlocal.info">Sed
+                &lt;a title="go in 2s" class="lancelotGo" href="http://ttlocal.info" style="display: none;">&lt;/a>
+            &lt;/a>
+        </pre>
+        <em>Demo:</em>
+        <p>
+            <a href="http://ttlocal.info" class="lancelot">Sed</a>
+        </p>
 
 
-		<em>CSS:</em>
-		.lancelot4{
-			border: 1px solid green;
-		}
-		.lancelotGo4{
-			background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
-			padding:0 0 0 13px;
-		}
-</pre>
-<a href="http://jquery.com" class="lancelot4">lancelot</a>
-
-<br />
-<br />
-<hr />
-
-<br />
-<p>
-	<em>Example5:</em>
-	all together now
-</p>
-<p>
-	<a href="http://jquery.com" class="lancelot">One</a>,
-	<a href="http://jquery.com" class="lancelot2">two</a>,
-	<a href="http://jquery.com" class="lancelot3">three</a>,
-	<a href="http://jquery.com" class="lancelot4">four</a><br />
-	Can I have a little more?<br />
-	five, six, seven eight nine ten I love you.<br />
-</p>
-
-<br />
-<hr />
+        <br /><hr /><br />
 
 
-</body>
+        <p>
+            <em>Example2:</em>
+            Showing text, original link to http://google.com and lancelot link to http://ttlocal.info
+        </p>
+        <em>html:</em>
+        <pre class="brush: html">
+            &lt;a href="http://google.com" class="lancelot2">test&lt;/a>
+        </pre>
+        <em>JS:</em>
+        <pre class="brush: js">
+            $('.lancelot2').lancelot({
+                hoverTime: 3000,
+                aclass: "lancelotGo2",
+                atext: "hover here!",
+                show: "true",
+                speed: "fast",
+                linkAction: "location",
+                alink: "http://ttlocal.info" //passing url
+            });
+        </pre>
+        <em>CSS:</em>
+        <pre class="brush: css">
+            .lancelot2{
+                background-color: #ccc;
+            }
+            .lancelotGo2{
+                background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
+                padding:0 0 0 13px;
+                display: block;
+            }
+        </pre>
+        <em>Result:</em>
+        <pre class="brush: html">
+            &lt;a class="lancelot2" href="http://google.com">test
+                &lt;a title="go in 2s" class="lancelotGo2" href="http://ttlocal.info">hover here!&lt;/a>
+            &lt;/a>
+        </pre>
+        <em>Demo:</em>
+        <p>
+            <a href="http://google.com" class="lancelot2">test</a>
+        </p>
+
+
+        <br /><hr /><br />
+
+
+        <p>
+            <em>Example3:</em>
+            Using span in the generated link.
+        </p>
+        <em>html:</em>
+        <pre class="brush: html">
+            &lt;a href="http://github.com/codexico/jquery-plugin-lancelot-autolink" class="lancelot3"&gt;Fork me!&lt;/a&gt;
+        </pre>
+        <em>JS:</em>
+        <pre class="brush: js">
+            $('.lancelot3').lancelot({
+                hoverTime: 1000,
+                aclass: "lancelotGo3",
+                atext: "go",
+                speed: "slow",
+                element: "span",  //&lt;span> instead of &lt;a>
+                linkAction: "_blank"  //new window
+            });
+        </pre>
+        <em>CSS:</em>
+        <pre class="brush: css">
+            .lancelot3{
+                background-color: yellow;
+            }
+            .lancelotGo3{
+                background: url("images/lancelot-icon.png") no-repeat scroll right center transparent;
+                padding:0 13px 0 6px;
+            }
+        </pre>
+        <em>Result:</em>
+        <pre class="brush: html">
+            &lt;a class="lancelot3" href="http://github.com/codexico/jquery-plugin-lancelot-autolink">Fork me!
+                &lt;span class="lancelotGo3" style="display: none;">&lt;/span>
+            &lt;/a>
+        </pre>
+        <em>Demo:</em>
+        <p>
+            <a href="http://github.com/codexico/jquery-plugin-lancelot-autolink" class="lancelot3">Fork me!</a>
+        </p>
+
+
+        <br /><hr /><br />
+
+
+        <p>
+            <em>Example4:</em>
+            Using a function to generate the lancelot link.
+        </p>
+        <em>html:</em>
+        <pre class="brush: html">
+            &lt;a href="http://jquery.com" class="lancelot4">lancelot&lt;/a>
+        </pre>
+        <em>JS:</em>
+        <pre class="brush: js">
+            var googleSearch = function(obj){
+                //obj is a reference to each $('.lancelot4')
+                var search = obj.text().replace(/^#/,'');
+                return "http://www.google.com/search?q="+search
+            };
+            $('.lancelot4').lancelot({
+                hoverTime: 3000,
+                aclass: "lancelotGo4",
+                atext: "",
+                show: "false",
+                speed: "fast",
+                linkAction: "location",
+                alink: googleSearch	  //passing function!
+            });
+        </pre>
+        <em>CSS:</em>
+        <pre class="brush: css">
+            .lancelot4{
+                border: 1px solid green;
+            }
+            .lancelotGo4{
+                background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
+                padding:0 0 0 13px;
+            }
+        </pre>
+        <em>Result:</em>
+        <pre class="brush: html">
+            &lt;a class="lancelot4" href="http://jquery.com">lancelot
+                &lt;a title="go in 2s" class="lancelotGo4"
+				href="http://www.google.com/search?q=lancelot" style="display: none;">&lt;/a>
+            &lt;/a>
+        </pre>
+        <em>Demo:</em>
+        <p>
+            <a href="http://jquery.com" class="lancelot4">lancelot</a>
+        </p>
+
+
+        <br /><hr /><br />
+
+
+        <p>
+            <em>Example5:</em>
+            all together now
+        </p>
+        <p>
+            <a href="http://jquery.com" class="lancelot">One</a>,
+            <a href="http://jquery.com" class="lancelot2">two</a>,
+            <a href="http://jquery.com" class="lancelot3">three</a>,
+            <a href="http://jquery.com" class="lancelot4">four</a><br />
+            Can I have a little more?<br />
+            five, six, seven eight nine ten I love you.<br />
+        </p>
+
+        <br /><hr />
+
+
+        <script type="text/javascript">
+            SyntaxHighlighter.defaults['auto-links'] = false;
+            SyntaxHighlighter.all();
+        </script>
+    </body>
 </html>
-
