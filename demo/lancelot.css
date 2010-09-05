@@ -1,27 +1,35 @@
 .lancelot{
 	background-color: red;
 }
-.lancelot2{
-	background-color: #ccc;
-}
-.lancelot3{
-	background-color: yellow;
-}
-.lancelot4{
-	border: 1px solid green;
-}
-
-
 .lancelotGo{
 	background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
 	padding:0 0 0 13px;
 }
-.lancelotGo2{
-	background: url("images/lancelot-icon.png") no-repeat scroll right center transparent;
-	padding:0 13px 0 6px;
+
+
+.lancelot2{
+	background-color: #ccc;
 }
-.lancelotGo3{
+.lancelotGo2{
 	background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
 	padding:0 0 0 13px;
 	display: block;
+}
+
+
+.lancelot3{
+	background-color: yellow;
+}
+.lancelotGo3{
+	background: url("images/lancelot-icon.png") no-repeat scroll right center transparent;
+	padding:0 13px 0 6px;
+}
+
+
+.lancelot4{
+	border: 1px solid green;
+}
+.lancelotGo4{
+	background:url("images/external-link-ltr-icon.png") no-repeat scroll left center transparent;
+	padding:0 0 0 13px;
 }
