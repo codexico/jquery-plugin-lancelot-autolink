@@ -19,41 +19,34 @@
  * "Copyleft; All Wrongs Reserved": http://www.gnu.org/copyleft/copyleft.html
  *
  *
- * Version 0.8
- * 2010-09-03
+ * Version 1.0
+ * 2010-11-04
  */
 
 (function ($) {
     $.fn.lancelot = function (options) {
 
-        //define a closure
         var L = {};
 
 
         L.defaults = {
-            hoverTime: 2000,		//time to launch the link in miliseconds
-            aclass: "lancelotGo",	//style, @see lancelot.css
-            atext: "",			//text to show
-            show: "false",		//if true dont hide the lancelots
-            speed: "fast",		//animation. TODO: other options
+            duration: 2000,		//time to launch the link in miliseconds
             linkAction: "location",	//"location" only redirects, "open" or "_blank" will try to open a new window, "tryPop" will try to popup and then redirect.
-            atitle: "go in 2s",		//link title
-            alink: false,		//if 'string' will use as the url, if 'function' will call to build the url
-            element: "a",		//element to hover, ex: "span", "div"
-            launch: false               //function to call when hoverTime is over
+            //windowOpen: false,          //TODO: parameters
+            launch: false               //function to call when duration is over
         };
         L.o = $.extend(L.defaults, options);
 
         //the plugin
         return this.each(function () {
-            //obj is a reference to each $('.lancelot')
-            var obj = $(this),
+            //reference to each $('.lancelot')
+            var $lancelotThis = $(this),
 
-            //the place where the Lancelot will take us
-            ahref,
+            //function to handle strange browsers things, unicorns and gods
+            stop,
 
-            //reference to the element created to be the Lancelot
-            goLink,
+            //function that redirects the browser to another link
+            redirectTo,
 
             //function that try to open a new popup, and if cant, redirect the page
             tryPop,
@@ -64,70 +57,62 @@
             //function to execute the Lancelot
             launch,
 
-            //function that redirects the browser to another link
-            redirectTo;
+            //This is the string that just names the new window.
+            windowOpenName;
 
 
-            //where we go?
-            ahref = obj.attr("href");
-            if (L.o.alink !== false) {
-                ahref = L.o.alink;
-                if ($.isFunction(L.o.alink)) {
-                    ahref = L.o.alink(obj);
+            //strange behaviors in some browsers
+            stop = function (X) {
+                if (X && X.stopPropagation) {
+                    X.stopPropagation();
+                } else if(window.event) {
+                    window.event.cancelBubble = true;
                 }
-            }
-            L.ahref = ahref;
-
-
-            //create and append element to hover
-            L.o.hoverElement = ' <a href="' + ahref + '" class="' + L.o.aclass + '" title="' + L.o.atitle + '">' + L.o.atext + '</a>';
-            if (L.o.element !== "a") {
-                L.o.hoverElement = $(document.createElement(L.o.element)).addClass(L.o.aclass);
-            }
-            obj.append(L.o.hoverElement);
-
-
-            //get the new created element
-            goLink = obj.find("." + L.o.aclass);
-            L.goLink = goLink;
-
-
-            //show animation
-            if (L.o.show !== "true") {
-                goLink.hide();
-                obj.hover(
-                    function () {
-                        goLink.fadeIn(L.o.speed);
-                    },
-                    function () {
-                        goLink.fadeOut(L.o.speed);
-                    }
-                    );
-            }
-
-            redirectTo = function () {
-                window.location.href = ahref;
             };
 
 
-            //ALERT: works in some browsers... try before use in production
-            tryPop = function () {
-                c = window.open(ahref, "ttlocal search");
+            redirectTo = function (d) {
+                window.location.href = $lancelotThis.attr("href");
+                stop(d);
+            };
+
+
+            windowOpenName = function () {
+                return ($lancelotThis.attr("title") ? $lancelotThis.attr("title") : $lancelotThis.attr("href")).replace(/\s+/, "-");;
+            }
+
+
+            //works in some browsers... try before use in production
+            tryPop = function (d) {
+                /*
+                //TODO:  accept parameters
+                var Y = 550, g = 450,
+                b = screen.height,
+                a = screen.width,
+                Z = Math.round((a / 2) - (Y / 2)),
+                f = 0;
+                if (b > g) {
+                    f = Math.round((b / 2) - (g / 2));
+                }
+                var c=window.open(X,"ttlocal search","left="+Z+",top="+f+",width="+Y+",height="+g+",personalbar=no,toolbar=no,scrollbars=yes,location=yes,resizable=yes");
+                */
+                c = window.open($lancelotThis.attr("href"), windowOpenName());
                 if (c) {
                     c.focus();
                 } else {
                     redirectTo();
                 }
+                stop(d);
             };
 
 
             launch = function () {
                 switch (L.o.linkAction) {
                     case "open":
-                        window.open(ahref, "ttlocal search");
+                        window.open($lancelotThis.attr("href"), windowOpenName());
                         break;
                     case "_blank":
-                        window.open(ahref, '_blank');
+                        window.open($lancelotThis.attr("href"), '_blank');
                         break;
                     case "tryPop":
                         tryPop();//TODO: accept parameters
@@ -140,16 +125,18 @@
 
             //prepare to launch
             L.t = false;//timer
-            goLink.hover(
+            $lancelotThis.hover(
                 function () {
+                    //console.log($lancelotThis.attr("href"))
                     if (L.t) {
                         window.clearTimeout(L.t);
                     }
                     if (L.o.launch !== false && $.isFunction(L.o.launch)) {
-                        L.t = window.setTimeout(L.o.launch(obj), L.o.hoverTime);//pass L now or it will be lost!
+                        L.t = window.setTimeout(L.o.launch($lancelotThis), L.o.duration);//pass $lancelotThis now or it will be lost!
                     } else {
-                        L.t = window.setTimeout(launch, L.o.hoverTime);
+                        L.t = window.setTimeout(launch, L.o.duration);
                     }
+
                 },
                 function () {
                     window.clearTimeout(L.t);
